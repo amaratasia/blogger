@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Run lint related stuff
+echo "[I] Running dialyzer.."
+mix dialyzer
+rc=$?; if [[ $rc != 0 ]]; then
+  echo "[W] Dialyzer exited with exit code: ${rc}:";
+fi
+
+echo "[I] Running static code analysis.."
+CREDO_OUT=`mix credo`
+rc=$?; if [[ $rc != 0 ]]; then
+  echo "[W] Credo exited with exit code: ${rc}:";
+  echo "${CREDO_OUT}"
+fi
+
